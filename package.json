@@ -1,0 +1,78 @@
+{
+  "name": "ai-ask",
+  "displayName": "AI提问",
+  "description": "将指定文件夹中的多个代码文件整理成markdown格式，以便向AI提问",
+  "author": "marbleqi <marbleqi@163.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qt-creative/ai-ask"
+  },
+  "homepage": "https://github.com/qt-creative/ai-ask",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.106.1"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "ai-ask.create",
+        "title": "AI提问"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "ai-ask.create",
+          "group": "navigation",
+          "when": "explorerResourceIsFolder"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "AI提问插件配置",
+      "properties": {
+        "aiAsk.includeFileExtensions": {
+          "type": "array",
+          "default": [
+            "ts",
+            "json",
+            "md",
+            "mjs",
+            "js",
+            "html"
+          ],
+          "description": "指定在生成目录清单时，只包含哪些文件后缀（不包含点，如 ts、html、py）。支持灵活配置以适应不同项目类型。"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.106.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.46.3",
+    "eslint": "^9.39.1",
+    "typescript": "^5.9.3",
+    "ts-loader": "^9.5.4",
+    "webpack": "^5.102.1",
+    "webpack-cli": "^6.0.1",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
